@@ -4,18 +4,16 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/TheEgid/news-demo-go/models"
+	"github.com/TheEgid/news-demo-go/templates"
 	"github.com/TheEgid/news-demo-go/utils"
-	"html/template"
 	"math"
 	"net/http"
 	"net/url"
 	"strconv"
 )
 
-var templ = template.Must(template.ParseFiles("index.html"))
-
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
-	_ = templ.Execute(w, nil)
+	_ = templates.IndexTempl.Execute(w, nil)
 }
 
 func SearchHandler(w http.ResponseWriter, r *http.Request) {
@@ -71,7 +69,7 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 		search.NextPage++
 	}
 
-	err = templ.Execute(w, search)
+	err = templates.IndexTempl.Execute(w, search)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
